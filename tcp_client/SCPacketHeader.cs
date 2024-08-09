@@ -14,13 +14,5 @@ namespace StarForce
             get;
             set;
         }
-        
-        public override PacketType PacketType
-        {
-            get
-            {
-                return PacketType.ServerToClient;
-            }
-        }
     }
 }
