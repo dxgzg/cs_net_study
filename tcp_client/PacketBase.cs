@@ -9,9 +9,12 @@ using GameFramework.Network;
 
 namespace StarForce
 {
-    public class PacketBase : Packet
+    public  class PacketBase : Packet
     {
-
+        public PacketBase(int id)
+        {
+            Id = id;
+        }
         public string msg;
         public override void Clear()
         {

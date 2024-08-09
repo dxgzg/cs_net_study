@@ -21,7 +21,7 @@ namespace StarForce
 
         public override void Handle(object sender, Packet packet)
         {
-            Console.WriteLine($"cao handler!!!!! {packet.ToString()}");
+            Console.WriteLine($"bang handler!!!!! {packet.ToString()}");
         }
     }
 }

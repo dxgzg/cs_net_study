@@ -20,7 +20,7 @@ class Program
         
         IPAddress  localIPAddress = IPAddress.Parse("127.0.0.1");
         channel.Connect(localIPAddress, 12345);
-        var packet = new PacketBase();
+        var packet = new PacketBase(1);
         packet.msg =  "1234hello world!";
         Thread.Sleep(1000);
         channel.Send(packet);

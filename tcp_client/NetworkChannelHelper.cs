@@ -112,7 +112,8 @@ namespace StarForce
         /// <returns>反序列化后的消息包。</returns>
         public Packet DeserializePacket(IPacketHeader packetHeader,Stream source, out object customErrorData)
         {
-            PacketBase b = new PacketBase();
+            SCPacketHeader scPacketHeader = packetHeader as SCPacketHeader;
+            PacketBase b = new PacketBase(scPacketHeader.Id);
             customErrorData = null;
             // 注意：此函数并不在主线程调用！
             // customErrorData = null;
@@ -146,6 +147,9 @@ namespace StarForce
             b.msg = "hello deserialize packet";
             var memoSource = source as MemoryStream;
             b.msg = Encoding.UTF8.GetString(memoSource.ToArray());
+
+            // TODO 确认
+             // b.Id = 2;
             return b;
         }
 
