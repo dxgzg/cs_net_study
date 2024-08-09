@@ -246,10 +246,6 @@ namespace GameFramework.Network
                     networkChannel = new TcpNetworkChannel(name, networkChannelHelper);
                     break;
 
-                case ServiceType.TcpWithSyncReceive:
-                    networkChannel = new TcpWithSyncReceiveNetworkChannel(name, networkChannelHelper);
-                    break;
-
                 default:
                     throw new GameFrameworkException(Utility.Text.Format("Not supported service type '{0}'.", serviceType));
             }
