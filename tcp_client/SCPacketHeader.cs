@@ -9,6 +9,12 @@ namespace StarForce
 {
     public sealed class SCPacketHeader : PacketHeaderBase
     {
+        public int MsgType
+        {
+            get;
+            set;
+        }
+        
         public override PacketType PacketType
         {
             get

@@ -94,7 +94,8 @@ namespace StarForce
             customErrorData = null;
             SCPacketHeader scPacketHeader = new SCPacketHeader();
 
-            scPacketHeader.Id = 2;
+            // scPacketHeader.Id = 2;
+            scPacketHeader.MsgType = 2;
             scPacketHeader.PacketLength = 12;
             return scPacketHeader;
             
@@ -113,7 +114,7 @@ namespace StarForce
         public Packet DeserializePacket(IPacketHeader packetHeader,Stream source, out object customErrorData)
         {
             SCPacketHeader scPacketHeader = packetHeader as SCPacketHeader;
-            PacketBase b = new PacketBase(scPacketHeader.Id);
+            PacketBase b = new PacketBase(scPacketHeader.MsgType);
             customErrorData = null;
             // 注意：此函数并不在主线程调用！
             // customErrorData = null;
