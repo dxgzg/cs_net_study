@@ -34,13 +34,13 @@ namespace GameFramework.Network
                 }
             }
 
-            // public IPacketHeader PacketHeader
-            // {
-            //     get
-            //     {
-            //         return m_PacketHeader;
-            //     }
-            // }
+            public IPacketHeader PacketHeader
+            {
+                get
+                {
+                    return m_PacketHeader;
+                }
+            }
 
             public void PrepareForPacketHeader(int packetHeaderLength)
             {

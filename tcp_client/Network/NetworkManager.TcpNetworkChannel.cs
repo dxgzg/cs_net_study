@@ -8,7 +8,6 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 
 namespace GameFramework.Network
 {
@@ -212,8 +211,6 @@ namespace GameFramework.Network
             {
                 try
                 {
-                    // m_ReceiveState.Stream.SetLength(100);
-                    Console.WriteLine($"3333length:{(m_ReceiveState.Stream.Length - m_ReceiveState.Stream.Position)}");
                     m_Socket.BeginReceive(m_ReceiveState.Stream.GetBuffer(), (int)m_ReceiveState.Stream.Position, (int)(m_ReceiveState.Stream.Length - m_ReceiveState.Stream.Position), SocketFlags.None, m_ReceiveCallback, m_Socket);
                 }
                 catch (Exception exception)
@@ -263,19 +260,24 @@ namespace GameFramework.Network
                 }
 
                 m_ReceiveState.Stream.Position += bytesReceived;
-                // TODO 
-                // if (m_ReceiveState.Stream.Position < m_ReceiveState.Stream.Length)
-                // {
-                //     ReceiveAsync();
-                //     return;
-                // }
+                if (m_ReceiveState.Stream.Position < m_ReceiveState.Stream.Length)
+                {
+                    ReceiveAsync();
+                    return;
+                }
 
                 m_ReceiveState.Stream.Position = 0L;
-                Console.WriteLine($"22222 receive:{Encoding.UTF8.GetString(m_ReceiveState.Stream.ToArray())}");
-                Console.WriteLine($"异步22222 receive:{ m_ReceiveState.Stream.Length}");
-                bool processSuccess = ProcessPacket();
-                m_ReceivedPacketCount++;
 
+                bool processSuccess = false;
+                if (m_ReceiveState.PacketHeader != null)
+                {
+                    processSuccess = ProcessPacket();
+                    m_ReceivedPacketCount++;
+                }
+                else
+                {
+                    processSuccess = ProcessPacketHeader();
+                }
 
                 if (processSuccess)
                 {

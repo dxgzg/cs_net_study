@@ -5,19 +5,16 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace GameFramework.Network
+namespace StarForce
 {
-    /// <summary>
-    /// 网络消息包头接口。
-    /// </summary>
-    public interface IPacketHeader
+    public sealed class SCPacketHeader : PacketHeaderBase
     {
-        /// <summary>
-        /// 获取网络消息包长度。
-        /// </summary>
-        int PacketLength
+        public override PacketType PacketType
         {
-            get;
+            get
+            {
+                return PacketType.ServerToClient;
+            }
         }
     }
 }

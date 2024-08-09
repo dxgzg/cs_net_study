@@ -28,7 +28,7 @@ namespace StarForce
         {
             get
             {
-                return 100;
+                return sizeof(int);
             }
         }
 
@@ -92,7 +92,12 @@ namespace StarForce
         public IPacketHeader DeserializePacketHeader(Stream source, out object customErrorData)
         {
             customErrorData = null;
-            return null;
+            SCPacketHeader scPacketHeader = new SCPacketHeader();
+
+            scPacketHeader.Id = 2;
+            scPacketHeader.PacketLength = 12;
+            return scPacketHeader;
+            
             // 注意：此函数并不在主线程调用！
             // customErrorData = null;
             // return (IPacketHeader)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire<SCPacketHeader>(), typeof(SCPacketHeader));
@@ -105,7 +110,7 @@ namespace StarForce
         /// <param name="source">要反序列化的来源流。</param>
         /// <param name="customErrorData">用户自定义错误数据。</param>
         /// <returns>反序列化后的消息包。</returns>
-        public Packet DeserializePacket(Stream source, out object customErrorData)
+        public Packet DeserializePacket(IPacketHeader packetHeader,Stream source, out object customErrorData)
         {
             PacketBase b = new PacketBase();
             customErrorData = null;
@@ -139,6 +144,8 @@ namespace StarForce
             //
             // ReferencePool.Release(scPacketHeader);
             b.msg = "hello deserialize packet";
+            var memoSource = source as MemoryStream;
+            b.msg = Encoding.UTF8.GetString(memoSource.ToArray());
             return b;
         }
 

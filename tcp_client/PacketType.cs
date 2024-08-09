@@ -5,19 +5,23 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
-namespace GameFramework.Network
+namespace StarForce
 {
-    /// <summary>
-    /// 网络消息包头接口。
-    /// </summary>
-    public interface IPacketHeader
+    public enum PacketType : byte
     {
         /// <summary>
-        /// 获取网络消息包长度。
+        /// 未定义。
         /// </summary>
-        int PacketLength
-        {
-            get;
-        }
+        Undefined = 0,
+
+        /// <summary>
+        /// 客户端发往服务器的包。
+        /// </summary>
+        ClientToServer,
+
+        /// <summary>
+        /// 服务器发往客户端的包。
+        /// </summary>
+        ServerToClient,
     }
 }

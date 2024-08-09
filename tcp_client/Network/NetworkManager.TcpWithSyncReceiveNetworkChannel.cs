@@ -232,13 +232,19 @@ namespace GameFramework.Network
                     {
                         return false;
                     }
-                    
-                    Console.Write($"同步22222 receive:{ m_ReceiveState.Stream.Length}");
+
                     m_ReceiveState.Stream.Position = 0L;
-            
+
                     bool processSuccess = false;
-                    processSuccess = ProcessPacket();
-                    m_ReceivedPacketCount++;
+                    if (m_ReceiveState.PacketHeader != null)
+                    {
+                        processSuccess = ProcessPacket();
+                        m_ReceivedPacketCount++;
+                    }
+                    else
+                    {
+                        processSuccess = ProcessPacketHeader();
+                    }
 
                     return processSuccess;
                 }

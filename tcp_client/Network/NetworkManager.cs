@@ -245,6 +245,7 @@ namespace GameFramework.Network
                 case ServiceType.Tcp:
                     networkChannel = new TcpNetworkChannel(name, networkChannelHelper);
                     break;
+
                 case ServiceType.TcpWithSyncReceive:
                     networkChannel = new TcpWithSyncReceiveNetworkChannel(name, networkChannelHelper);
                     break;
