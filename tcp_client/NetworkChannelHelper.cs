@@ -107,6 +107,7 @@ namespace StarForce
         /// <returns>反序列化后的消息包。</returns>
         public Packet DeserializePacket(Stream source, out object customErrorData)
         {
+            PacketBase b = new PacketBase();
             customErrorData = null;
             // 注意：此函数并不在主线程调用！
             // customErrorData = null;
@@ -137,7 +138,8 @@ namespace StarForce
             // }
             //
             // ReferencePool.Release(scPacketHeader);
-            return null;
+            b.msg = "hello deserialize packet";
+            return b;
         }
 
        
