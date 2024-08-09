@@ -20,8 +20,9 @@ namespace StarForce
         }
 
         public override void Handle(object sender, Packet packet)
-        {
-            Console.WriteLine($"bang handler!!!!! {packet.ToString()}");
+        {   
+            int threadId = Thread.CurrentThread.ManagedThreadId;
+            Console.WriteLine($"bang handler!!!!! {packet.ToString()} threadId:{threadId}");
         }
     }
 }

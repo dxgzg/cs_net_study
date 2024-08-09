@@ -24,7 +24,8 @@ class Program
         packet.msg =  "1234hello world!";
         Thread.Sleep(1000);
         channel.Send(packet);
-        
+        int threadId = Thread.CurrentThread.ManagedThreadId;
+        Console.WriteLine($"run threadId:{threadId}");
         
         while (true)
         {
@@ -33,10 +34,6 @@ class Program
     }
     
     public static void handler(object sender,Packet packet)
-    {
-        Console.WriteLine($"hello handler!!! {packet.ToString()}");
-    }
-    public static void handler2(object sender,Packet packet)
     {
         Console.WriteLine($"hello handler!!! {packet.ToString()}");
     }

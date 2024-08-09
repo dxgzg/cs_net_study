@@ -40,10 +40,7 @@ namespace GameFramework.Network
             /// </summary>
             public override ServiceType ServiceType
             {
-                get
-                {
-                    return ServiceType.Tcp;
-                }
+                get { return ServiceType.Tcp; }
             }
 
             /// <summary>
@@ -94,7 +91,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.ConnectError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.ConnectError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -119,7 +118,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.ConnectError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.ConnectError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -154,7 +155,11 @@ namespace GameFramework.Network
             {
                 try
                 {
-                    m_Socket.BeginSend(m_SendState.Stream.GetBuffer(), (int)m_SendState.Stream.Position, (int)(m_SendState.Stream.Length - m_SendState.Stream.Position), SocketFlags.None, m_SendCallback, m_Socket);
+                    int threadId = Thread.CurrentThread.ManagedThreadId;
+                    Console.WriteLine($"2222222send threadId:{threadId}");
+                    m_Socket.BeginSend(m_SendState.Stream.GetBuffer(), (int)m_SendState.Stream.Position,
+                        (int)(m_SendState.Stream.Length - m_SendState.Stream.Position), SocketFlags.None,
+                        m_SendCallback, m_Socket);
                 }
                 catch (Exception exception)
                 {
@@ -162,7 +167,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.SendError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.SendError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -177,7 +184,8 @@ namespace GameFramework.Network
                 {
                     return;
                 }
-
+                int threadId = Thread.CurrentThread.ManagedThreadId;
+                Console.WriteLine($"333333sendcallback threadId:{threadId}");
                 int bytesSent = 0;
                 try
                 {
@@ -189,7 +197,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.SendError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.SendError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -211,7 +221,9 @@ namespace GameFramework.Network
             {
                 try
                 {
-                    m_Socket.BeginReceive(m_ReceiveState.Stream.GetBuffer(), (int)m_ReceiveState.Stream.Position, (int)(m_ReceiveState.Stream.Length - m_ReceiveState.Stream.Position), SocketFlags.None, m_ReceiveCallback, m_Socket);
+                    m_Socket.BeginReceive(m_ReceiveState.Stream.GetBuffer(), (int)m_ReceiveState.Stream.Position,
+                        (int)(m_ReceiveState.Stream.Length - m_ReceiveState.Stream.Position), SocketFlags.None,
+                        m_ReceiveCallback, m_Socket);
                 }
                 catch (Exception exception)
                 {
@@ -219,7 +231,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.ReceiveError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.ReceiveError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -246,7 +260,9 @@ namespace GameFramework.Network
                     if (NetworkChannelError != null)
                     {
                         SocketException socketException = exception as SocketException;
-                        NetworkChannelError(this, NetworkErrorCode.ReceiveError, socketException != null ? socketException.SocketErrorCode : SocketError.Success, exception.ToString());
+                        NetworkChannelError(this, NetworkErrorCode.ReceiveError,
+                            socketException != null ? socketException.SocketErrorCode : SocketError.Success,
+                            exception.ToString());
                         return;
                     }
 
@@ -266,6 +282,9 @@ namespace GameFramework.Network
                     return;
                 }
 
+                int threadId = Thread.CurrentThread.ManagedThreadId;
+                Console.WriteLine($"2222222receive threadId:{threadId}");
+                
                 m_ReceiveState.Stream.Position = 0L;
 
                 bool processSuccess = false;
